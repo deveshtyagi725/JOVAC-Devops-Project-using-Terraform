@@ -1,154 +1,163 @@
-🚀 Multicloud Infrastructure Automation using Terraform
-Deploy AWS + Azure resources automatically with a single command
-<div align="center">
+🚀 JOVAC – Multi-Cloud Infrastructure Automation with Terraform (AWS + Azure)
+<p align="center"> <em>Enterprise-Level Cloud Automation | Built by Devesh Tyagi 🤖 | Powered by Terraform, AWS & Azure</em> </p> <p align="center"> <img src="https://img.shields.io/badge/Terraform-v1.9.0-blueviolet?logo=terraform" /> <img src="https://img.shields.io/badge/AWS-Cloud-orange?logo=amazonaws" /> <img src="https://img.shields.io/badge/Azure-Microsoft-blue?logo=microsoftazure" /> <img src="https://img.shields.io/badge/IaC-Infrastructure%20as%20Code-success?logo=githubactions" /> <img src="https://img.shields.io/badge/DevOps-Automation-blue?logo=azuredevops" /> <img src="https://img.shields.io/badge/Version%20Control-GitHub-black?logo=github" /> <img src="https://img.shields.io/badge/License-MIT-green" /> </p>
+📘 Overview
 
+JOVAC (Job Oriented Value Added Course) Multi-Cloud Infrastructure Automation is a Terraform-powered project that deploys cloud resources on both AWS and Azure automatically using a single command.
 
+This project demonstrates:
 
+☁️ AWS Virtual Private Cloud (VPC) provisioning
 
+🔐 Security Group automation
 
+🖥️ EC2 Instance deployment
 
-</div>
-🌍 Project Overview
+🔵 Azure Resource Group + Storage Account creation
 
-This project demonstrates multicloud automation using Terraform, provisioning infrastructure in both AWS and Azure simultaneously.
+📦 Blob container automation
 
-✔️ One command → deploy resources
-✔️ One command → destroy everything
-✔️ Same code → works across two clouds
+🧱 Full multi-cloud infrastructure from a single codebase
 
-🛠️ Tech Stack
-Tool	Purpose
-Terraform	Infrastructure as Code (IaC)
-AWS	EC2 + Networking (VPC, Subnet, SG)
-Azure	Storage Account + Blob Container
-VS Code / PowerShell	Execution environment
-⚙️ Architecture Diagram
-<div align="center">
-                 ┌───────────────────────┐
-                 │     Terraform CLI     │
-                 │   (Single Apply Cmd)  │
-                 └───────────┬───────────┘
-                             │
-             ┌───────────────┴────────────────┐
-             │                                │
-   ┌─────────▼────────┐             ┌─────────▼────────┐
-   │       AWS         │             │       Azure       │
-   │  (Amazon Cloud)   │             │ (Microsoft Cloud) │
-   └─────────┬─────────┘             └─────────┬────────┘
-             │                                   │
-┌────────────▼────────────┐     ┌────────────────▼─────────────────┐
-│ EC2 Instance             │     │ Azure Resource Group             │
-│ Security Group           │     │ Storage Account                 │
-│ VPC + Subnet + Routing   │     │ Blob Container (app-data)       │
-└──────────────────────────┘     └─────────────────────────────────┘
+🔁 Idempotent IaC (same code can run multiple times safely)
 
-</div>
-🚀 Resources Created
-🟧 AWS (Amazon Web Services)
-AWS resources deployed automatically:
+⚙️ Tech Stack
+Layer	Technology	Purpose
+☁️ Cloud Provider 1	Amazon Web Services	Compute & Networking
+☁️ Cloud Provider 2	Microsoft Azure	Storage Infrastructure
+🧩 IaC Engine	Terraform v1.9+	Declarative Infra Deployment
+🧾 State	Local State (S3 Ready)	Infrastructure Tracking
+🔐 Security	AWS SG, Azure Access Policies	Cloud Safety
+🔧 Automation	Terraform CLI	Multi-Cloud Automation
+🧭 Project Architecture
+🌩️ High-Level Multi-Cloud Architecture
+                ┌───────────────────────────┐
+                │        TERRAFORM CLI       │
+                └───────────────┬───────────┘
+                                │
+                   ┌────────────┴──────────────┐
+                   │                           │
+        ┌──────────▼──────────┐     ┌──────────▼──────────┐
+        │      AWS CLOUD       │     │     AZURE CLOUD      │
+        └──────────────────────┘     └──────────────────────┘
+        • VPC                            • Resource Group
+        • Subnet                         • Storage Account  
+        • Internet Gateway               • Blob Container  
+        • Route Table        
+        • Security Group       
+        • EC2 Instance       
 
-VPC (private network)
+📁 Repository Structure
+JOVAC-MultiCloud-Terraform/
+│
+├── main.tf                  # AWS VPC + EC2 Infrastructure
+├── provider.tf              # AWS + Azure provider configuration
+├── variables.tf             # Input variables
+├── storage.tf               # Azure Storage Infrastructure
+│
+├── terraform.tfstate        # Local Terraform state
+├── terraform.tfstate.backup # Backup state
+│
+├── .terraform/              # Provider plugins (ignored)
+├── .gitignore               # Terraform ignored files
+└── README.md                # Documentation
 
-Subnet (inside VPC)
-
-Internet Gateway
-
-Route Table + Association
-
-Security Group (SSH allowed)
-
-EC2 Instance (Amazon Linux 2)
-
-🟦 Azure (Microsoft Azure)
-Azure resources deployed automatically:
-
-Resource Group → multicloud-demo-rg
-
-Storage Account → multiclouddemosa123
-
-Blob Container → app-data
-
-📂 Project Structure
-📁 terraform-project/
-│── main.tf
-│── aws.tf
-│── azure.tf
-│── storage.tf
-│── variables.tf
-│── outputs.tf
-│── provider.tf
-└── README.md
-
-🧪 How to Run This Project
+🚀 Deployment Steps
 1️⃣ Initialize Terraform
 terraform init
 
-2️⃣ Preview the changes
+2️⃣ Validate configuration
+terraform validate
+
+3️⃣ Preview execution plan
 terraform plan
 
-3️⃣ Apply (Deploy infrastructure)
-terraform apply
+4️⃣ Apply and deploy AWS + Azure Infrastructure
+terraform apply -auto-approve
 
+🟢 Terraform will automatically:
+On AWS:
 
-Type yes to confirm.
+Create VPC
 
-✔ AWS EC2 will be created
-✔ Azure Storage + Container will be created
+Create Subnet
 
-4️⃣ Destroy infrastructure
-terraform destroy
+Create Internet Gateway
 
+Add Route Table & associations
 
-Type yes to confirm.
+Create Security Group
 
-✔ All AWS & Azure resources deleted automatically
+Deploy EC2 instance
 
-📤 Outputs
+On Azure:
 
-After successful apply, Terraform returns:
+Create Resource Group
 
-aws_ec2_public_ip = "13.xx.xx.xx"
-azure_storage_account_name = "multiclouddemosa123"
-azure_blob_container_name = "app-data"
+Create Storage Account
 
-🧾 Key Features
+Create Blob Container
 
-✨ Fully automated multicloud provisioning
-✨ Real-world DevOps-level project
-✨ Cloud-neutral IaC approach
-✨ Repeatable deployments
-✨ Destroy in one command
+📤 Outputs (Example)
 
-💡 Why This Project Is Impressive
+You can add outputs in your code if needed (e.g., EC2 public IP):
 
-Shows knowledge of AWS, Azure, and Terraform
+ec2_public_ip = "3.92.114.21"
+azure_blob_url = "https://<account>.blob.core.windows.net/<container>"
 
-Demonstrates a professional DevOps workflow
+🧠 Why This Project Is Important
 
-Includes networking, compute, and storage
+This project proves:
 
-Uses best practices like variables + outputs
+✔ Multi-Cloud IaC Skill
 
-📸 (Optional) Add Screenshots
+You are deploying two cloud platforms using one tool.
 
-I can generate these for you if you want:
+✔ DevOps & Automation Knowledge
 
-AWS EC2 dashboard
+You automated everything using code, no clicking in the console.
 
-AWS VPC dashboard
+✔ Enterprise-Level Infrastructure Architecture
 
-Azure Resource Group
+Every step follows real DevOps workflows.
 
-Azure Storage Account
+✔ Viva-Ready Explanation
 
-Azure Blob Container
+“In one command, Terraform automatically creates resources in AWS and Azure.
+This shows Infrastructure as Code, automation, multi-cloud integration, and DevOps concepts.”
 
-📄 License
+🔐 Best Practices Followed
 
-This project is open-source. You may modify or reuse it freely.
+📜 Clean, modular Terraform structure
 
-🙌 Author
+🔒 Minimum required security rules
 
-Devesh Tyagi
-B.Tech CSE | GLA University
-DevOps & Cloud Enthusiast
+🚀 Multi-Cloud support in a single workspace
+
+☑ Idempotent — re-running apply does not break infra
+
+⭐ Highly extensible for CI/CD (GitHub Actions / Jenkins)
+
+🧰 DevOps Workflow (Recommended)
+Developer → Git Commit → GitHub → Terraform Plan → Terraform Apply → Multi-Cloud Infra Live
+
+🌐 Future Enhancements
+Feature	Status
+Azure VM Deployment	⏳ Planned
+AWS Load Balancer	🔧 Possible
+S3 Backend for Remote State	🟢 Ready
+Azure Key Vault Integration	⏳ Upcoming
+Monitoring Dashboard	Planned
+🧑‍💻 Author
+
+👤 Devesh Tyagi
+Cloud & DevOps Engineer (Training)
+
+💬 “One command. Two clouds. Complete automation.”
+
+🔗 GitHub: https://github.com/deveshtyagi
+
+🔗 LinkedIn: (Add your link here)
+
+⚖️ License
+
+Licensed under the MIT License — free to use and modify.
